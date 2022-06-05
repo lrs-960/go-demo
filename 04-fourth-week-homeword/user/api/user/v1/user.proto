@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option go_package="user/api/user/v1;v1";
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+//用户服务
+service UserService {
+  rpc GetUser (GetUserRequest) returns (User) {
+    option (google.api.http) = {
+      get: "/v1/user/list"
+    };
+  }
+
+  rpc CreateUser(CreateUserRequest) returns (User) {
+    option (google.api.http) = {
+      post: "/v1/user/create"
+      body: "*"
+    };
+  }
+}
+
+message CreateUserRequest {
+  int64 id = 1;
+  string user_name = 2;
+  int32 age = 3;
+  //0男  1女
+  bool sex = 4;
+}
+
+message GetUserRequest {
+  int64 id = 1;
+}
+
+message User {
+  string id = 1;
+  string user_name = 2;
+  int32 age = 3;
+  //0男  1女
+  bool sex = 4;
+}
